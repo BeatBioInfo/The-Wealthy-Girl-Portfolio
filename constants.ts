@@ -18,6 +18,28 @@ export const PROFILE = {
   resumeUrl: "https://drive.google.com/file/d/1mWRPmh5XrLU27ieVpBAYEXtyH9VtP5qn/view?usp=sharing",
 };
 
+export const FUN_FACTS = [
+  {
+    topic: "Literary Interest",
+    title: "Thriller Enthusiast",
+    description: "I haven't read much yet, but I am falling in love with thriller novels. I absolutely adore the mental gymnastics required to solve the mystery before the detective does.",
+    icon: "book" as const
+  },
+  {
+    topic: "Creative Outlet",
+    title: "Nature & Art",
+    description: "I enjoy taking walks on good days to clear my mind, and I've recently started painting to capture those moments.",
+    meta: "Artwork display available on request",
+    icon: "palette" as const
+  },
+  {
+    topic: "Tech Curiosity",
+    title: "Podcasts & AI",
+    description: "I'm constantly tuning into podcasts and exploring the evolving world of AI, staying curious about what's next in tech.",
+    icon: "headphones" as const
+  }
+];
+
 export const PROJECTS: Project[] = [
   {
     title: "Cypress Book Appointment Test",
@@ -129,17 +151,17 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Automation & Frameworks",
     icon: 'code',
-    skills: ["Cypress", "Selenium IDE", "Appium", "Playwright", "TestNG", "BDD", "Java", "JavaScript"]
+    skills: ["Cypress", "Selenium", "Appium", "Playwright", "TestNG", "BDD", "Java", "JavaScript"]
   },
   {
     title: "Testing & Performance",
     icon: 'chart',
-    skills: ["Manual Testing", "API Testing", "JMeter", "K6 Grafana", "Postman", "Regression", "Smoke Testing"]
+    skills: ["Manual Testing", "API Testing", "JMeter", "K6 Grafana", "Postman", "Functional Testing", "Regression", "Smoke Testing"]
   },
   {
-    title: "Tools & DevOps",
+    title: "Tools",
     icon: 'tool',
-    skills: ["Git", "Jira", "AWS CloudWatch", "SQL (PostgreSQL)", "Visual Studio Code", "ClickUp", "Maestro"]
+    skills: ["Git", "Jira", "AWS CloudWatch", "SQL (PostgreSQL)", "Visual Studio Code", "Android Studio", "ClickUp", "Maestro"]
   },
   {
     title: "Core Competencies",

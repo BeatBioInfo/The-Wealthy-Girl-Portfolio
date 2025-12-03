@@ -7,8 +7,15 @@ const NavBar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Replaced Education with Projects
-  const navItems = ['Profile', 'Skills', 'Experience', 'Projects', 'Contact'];
+  // Define navigation items with explicit labels and IDs
+  const navItems = [
+    { label: 'Profile', id: 'profile' },
+    { label: 'Skills', id: 'skills' },
+    { label: 'Experience', id: 'experience' },
+    { label: 'Projects', id: 'projects' },
+    { label: 'Offline Mode', id: 'fun-facts' },
+    { label: 'Contact', id: 'contact' },
+  ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -49,12 +56,12 @@ const NavBar = () => {
             <div className="ml-10 flex items-baseline space-x-8">
               {navItems.map((item) => (
                 <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={(e) => handleNavClick(e, item.toLowerCase())}
+                  key={item.label}
+                  href={`#${item.id}`}
+                  onClick={(e) => handleNavClick(e, item.id)}
                   className="px-3 py-2 rounded-md text-sm font-light text-slate-300 hover:text-white hover:bg-white/5 transition-all tracking-wide hover:tracking-wider duration-300"
                 >
-                  {item}
+                  {item.label}
                 </a>
               ))}
             </div>
@@ -95,12 +102,12 @@ const NavBar = () => {
         <div className="px-4 pt-2 pb-6 space-y-1">
           {navItems.map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              onClick={(e) => handleNavClick(e, item.toLowerCase())}
+              key={item.label}
+              href={`#${item.id}`}
+              onClick={(e) => handleNavClick(e, item.id)}
               className="block px-3 py-4 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-colors border-b border-white/5 last:border-0"
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </div>

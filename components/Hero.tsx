@@ -58,7 +58,7 @@ const Hero = () => {
   };
 
   return (
-    <div id="profile" className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
+    <div id="profile" className="relative min-h-screen flex flex-col justify-start items-center overflow-hidden pt-44 md:pt-52">
         
         {/* === Background Design === */}
         

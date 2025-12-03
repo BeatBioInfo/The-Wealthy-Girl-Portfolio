@@ -79,3 +79,29 @@ export const PaperPlaneIcon = ({ className }: { className?: string }) => (
     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
   </svg>
 );
+
+export const BookIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  </svg>
+);
+
+export const PaletteIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-3.32 3 3 0 0 0-6 0 6 6 0 0 0-6 5.55"/>
+    <path d="M12 2a10 10 0 0 1 10 10"/>
+    <circle cx="8" cy="12" r="1"/>
+    <circle cx="12" cy="7" r="1"/>
+    <circle cx="16" cy="12" r="1"/>
+    <circle cx="12" cy="17" r="1"/>
+  </svg>
+);
+
+export const HeadphonesIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 14v-3a9 9 0 0 1 18 0v3" />
+    <path d="M2 19h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+    <path d="M22 19h-3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h2z" />
+  </svg>
+);

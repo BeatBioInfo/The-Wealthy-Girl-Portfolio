@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import FunFacts from './components/FunFacts';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -17,6 +18,7 @@ const App = () => {
         <Skills />
         <Experience />
         <Projects />
+        <FunFacts />
         <Contact />
       </main>
       <Footer />
