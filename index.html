@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oluwakemisola | Senior QA Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              space: {
+                950: '#030712', // Deepest black/blue
+                900: '#0b1221',
+                800: '#151e32',
+              },
+              comet: {
+                300: '#5eead4', // Teal light
+                500: '#14b8a6', // Teal default
+                700: '#0f766e', // Teal dark
+                900: '#134e4a', // Deep teal
+              }
+            },
+            backgroundImage: {
+              'noise': "url('https://grainy-gradients.vercel.app/noise.svg')",
+              'sphere-gradient': 'radial-gradient(circle at 30% 30%, rgba(20, 184, 166, 0.4), rgba(15, 118, 110, 0.1) 40%, rgba(0, 0, 0, 0) 70%)',
+            },
+            animation: {
+              'blink': 'blink 1.4s infinite both',
+              'spin-slow': 'spin 15s linear infinite',
+              'spin-slower': 'spin 25s linear infinite',
+              'reverse-spin': 'spin 20s linear infinite reverse',
+              'float': 'float 8s ease-in-out infinite',
+              'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            keyframes: {
+              blink: {
+                '0%': { opacity: '0.2' },
+                '20%': { opacity: '1' },
+                '100%': { opacity: '0.2' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0) translateX(0)' },
+                '50%': { transform: 'translateY(-20px) translateX(10px)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      html {
+        scroll-padding-top: 6rem; /* Offset for fixed header */
+      }
+      body {
+        background-color: #030712;
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .comet-sphere {
+        background: radial-gradient(circle at 35% 35%, #115e59 0%, #042f2e 40%, #020617 100%);
+        box-shadow: inset -20px -20px 60px rgba(0,0,0,0.8), 
+                    inset 20px 20px 60px rgba(20, 184, 166, 0.2),
+                    0 0 50px rgba(20, 184, 166, 0.1);
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+      }
+      .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+      
+      /* Animated Dashed Line */
+      .dashed-line-vertical {
+        background-image: linear-gradient(to bottom, rgba(94, 234, 212, 0.2) 50%, transparent 50%);
+        background-size: 2px 30px; /* 15px dash, 15px gap */
+        background-repeat: repeat-y;
+        animation: flowDown 1.5s linear infinite;
+      }
+      
+      @keyframes flowDown {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 30px; }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
