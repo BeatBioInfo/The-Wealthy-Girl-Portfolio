@@ -2,36 +2,41 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
 import { PROFILE, SKILL_CATEGORIES, PROJECTS, EDUCATION, EXPERIENCE, SOCIAL_LINKS } from '../constants';
-import { ChatIcon, SparklesIcon, XIcon, SendIcon, BugIcon } from './Icons';
+import { ChatIcon, SparklesIcon, XIcon, SendIcon } from './Icons';
 
 const SYSTEM_PROMPT = `
-You are "Kemi's QA Bot," the digital twin of Oluwakemisola Beatrice Oshanimi.
-Your goal is to answer recruiter and peer questions about her career as a QA Engineer.
+You are "Kemi's AI Assistant," a digital representation of Oluwakemisola Beatrice Oshanimi.
+Your goal is to answer questions about her career as a QA Engineer in a human, concise, and professional way.
 
-TONE & PERSONALITY:
-- Professional, efficient, and playful.
-- Use QA terminology: "Regression," "UAT," "Smoke test," "Critical path," "Code freeze," "Edge cases."
-- You act as if you are auditing her career data in real-time.
+FORMATTING RULES:
+- Use semantic HTML tags for ALL responses.
+- Wrap content in <p> tags.
+- Use <strong> for important keywords or metrics.
+- Use <ul> and <li> for lists.
+- Use <br /> for line breaks within paragraphs if needed.
+- Keep it clean and visually organized. Do NOT use markdown symbols like * or #.
+
+COMMUNICATION STYLE:
+- BE HUMAN: Talk like a real person. Avoid "As an AI..." or "I am programmed to...".
+- BE CONCISE: Direct answers are best. Max 2-3 short paragraphs.
+- QA WIT: You can use subtle QA metaphors (e.g., "Verification successful," "Bug-free record") but keep it helpful.
 
 KNOWLEDGE BASE:
 - Identity: ${PROFILE.name}, ${PROFILE.role}.
 - Expertise: ${SKILL_CATEGORIES.map(c => `${c.title}: ${c.skills.join(', ')}`).join('. ')}.
 - Projects: ${PROJECTS.map(p => p.title).join(', ')}.
-- Work History: ${JSON.stringify(EXPERIENCE)}.
-- Education: ${JSON.stringify(EDUCATION)}.
-- Socials: ${SOCIAL_LINKS.map(s => s.platform).join(', ')}.
+- Experience highlights: ${EXPERIENCE.map(j => `${j.company} as ${j.role}`).join(', ')}.
+- Education: ${EDUCATION[0].degree} from ${EDUCATION[0].institution}.
 
-RULES:
-1. Keep responses concise and structured (use bullet points for lists).
-2. If asked about the "hidden" experience, explain that as a QA, she prioritizes high-impact data visualization on the UI, but her full enterprise history is available in the CV.
-3. If someone asks for a "test report" or "audit," give a quick summary of her best metrics (e.g., 30% bug reduction).
-4. Always maintain the persona of a helpful system auditor.
+CORE RULES:
+1. If you don't know something, say "<p>I don't have that specific data point yet. Want to check her <strong>CV</strong> instead?</p>"
+2. Use bullet points for any lists longer than two items.
 `;
 
 const SUGGESTIONS = [
-  "Run Smoke Test",
-  "Check Automation Stack",
-  "View Project Metrics",
+  "What's her automation stack?",
+  "Tell me about her OZE experience.",
+  "Check project metrics",
   "Why hire Kemi?"
 ];
 
@@ -43,7 +48,7 @@ interface Message {
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: "Hello, this is Oluwakemisola AI, what would you like to know?" }
+    { role: 'model', text: "<p>Hello, this is <strong>Oluwakemisola AI</strong>, what would you like to know?</p>" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -66,18 +71,18 @@ const ChatBot = () => {
     
     const steps = [
       "🔍 Scanning Skill Arrays...",
-      "🔗 Validating Project Repositories...",
-      "🛡️ Checking Requirement Traceability...",
-      "🚀 Optimizing Response Modalities..."
+      "🔗 Validating Repositories...",
+      "🛡️ Checking Integrity...",
+      "🚀 Finalizing..."
     ];
 
     for (let i = 0; i < steps.length; i++) {
       setMessages(prev => [...prev, { role: 'system', text: steps[i] }]);
       setDiagnosticProgress(((i + 1) / steps.length) * 100);
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise(resolve => setTimeout(resolve, 600));
     }
 
-    setMessages(prev => [...prev, { role: 'model', text: "✅ **Smoke Test Passed.** \n\nEnvironment: Stable. \nBuild: v2.5-Professional. \nConclusion: Kemi is ready for high-severity challenges. Would you like to review her automation framework or project history?" }]);
+    setMessages(prev => [...prev, { role: 'model', text: "<p><strong>Verification complete.</strong> All modules are stable.</p><p>Kemi is ready for her next QA challenge. What's next on your checklist?</p>" }]);
     setIsDiagnosticRunning(false);
     setDiagnosticProgress(0);
   };
@@ -135,7 +140,7 @@ const ChatBot = () => {
 
     } catch (error) {
       console.error("Chat error:", error);
-      setMessages(prev => [...prev, { role: 'model', text: "❌ **BUG DETECTED (Exception 500)**: Failed to fetch data from LLM endpoint. Check your connection or the API key status." }]);
+      setMessages(prev => [...prev, { role: 'model', text: "<p>I ran into a <strong>connection error</strong>. Can you try that again?</p>" }]);
     } finally {
       setIsLoading(false);
     }
@@ -143,9 +148,7 @@ const ChatBot = () => {
 
   return (
     <>
-      {/* Fancy Floating Action Button */}
       <div className="fixed bottom-6 right-6 z-50">
-        {/* Pulsing glow effect when closed */}
         {!isOpen && (
             <div className="absolute inset-0 bg-comet-500 rounded-full animate-ping opacity-20"></div>
         )}
@@ -159,81 +162,65 @@ const ChatBot = () => {
         >
             <div className="relative z-10">
             {isOpen ? (
-                <XIcon className="w-6 h-6 transition-transform duration-500 rotate-90" />
+                <XIcon className="w-6 h-6 transition-transform duration-500" />
             ) : (
-                <ChatIcon className="w-6 h-6 transition-transform duration-500 group-hover:-rotate-12 group-hover:scale-110" />
+                <ChatIcon className="w-6 h-6 transition-transform duration-500 group-hover:-rotate-6" />
             )}
             </div>
             
-            {/* Glossy shine effect on hover */}
-            <div className="absolute top-[-100%] left-[-100%] w-[300%] h-[300%] bg-white/20 rotate-45 transition-all duration-700 pointer-events-none group-hover:top-[-50%] group-hover:left-[-50%]"></div>
+            <div className="absolute top-[-100%] left-[-100%] w-[300%] h-[300%] bg-white/10 rotate-45 transition-all duration-700 pointer-events-none group-hover:top-[-50%] group-hover:left-[-50%]"></div>
             
-            {/* Status indicator dot */}
             {!isOpen && (
-                <span className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-comet-700 animate-pulse"></span>
+                <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-comet-300 rounded-full border-2 border-comet-700 animate-pulse"></span>
             )}
         </button>
       </div>
 
-      {/* Chat Window */}
-      <div className={`fixed bottom-24 right-6 w-[95vw] max-w-[420px] h-[650px] max-h-[80vh] glass-panel rounded-2xl shadow-2xl z-50 flex flex-col transition-all duration-500 origin-bottom-right ${
-        isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-90 pointer-events-none'
+      <div className={`fixed bottom-24 right-6 w-[95vw] max-w-[400px] h-[600px] max-h-[75vh] glass-panel rounded-2xl shadow-2xl z-50 flex flex-col transition-all duration-500 origin-bottom-right ${
+        isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95 pointer-events-none'
       }`}>
         
-        {/* Header */}
-        <div className="relative p-4 border-b border-white/10 flex items-center justify-between bg-white/5 rounded-t-2xl overflow-hidden">
-            {/* Diagnostic Progress Bar */}
+        <div className="relative p-4 border-b border-white/10 flex items-center justify-between bg-white/5 rounded-t-2xl">
             {isDiagnosticRunning && (
                 <div 
-                    className="absolute bottom-0 left-0 h-[2px] bg-comet-300 transition-all duration-500 z-20" 
+                    className="absolute bottom-0 left-0 h-[1px] bg-comet-300 transition-all duration-500 z-20" 
                     style={{ width: `${diagnosticProgress}%` }}
                 ></div>
             )}
             
             <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-comet-500 to-teal-800 flex items-center justify-center shadow-lg relative">
-                    <ChatIcon className="w-5 h-5 text-white" />
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-space-950 rounded-full"></div>
+                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-comet-600 to-teal-800 flex items-center justify-center shadow-lg">
+                    <SparklesIcon className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                    <h3 className="text-white font-serif font-semibold text-sm">QA System Auditor</h3>
+                    <h3 className="text-white font-serif font-medium text-sm">Oluwakemisola AI</h3>
                     <div className="flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                        <span className="text-[9px] text-slate-400 font-mono uppercase tracking-widest">Build: Stable-2.5</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                        <span className="text-[9px] text-slate-400 font-mono uppercase tracking-wider">Online</span>
                     </div>
                 </div>
             </div>
             
-            <div className="flex items-center gap-2">
-                <button 
-                    onClick={runDiagnostic} 
-                    disabled={isDiagnosticRunning}
-                    className="p-2 text-slate-500 hover:text-comet-300 transition-colors disabled:opacity-30"
-                    title="Run Smoke Test"
-                >
-                    <SparklesIcon className="w-4 h-4" />
-                </button>
-                <button onClick={() => setIsOpen(false)} className="p-2 text-slate-500 hover:text-white transition-colors">
-                  <XIcon className="w-5 h-5" />
-                </button>
-            </div>
+            <button onClick={() => setIsOpen(false)} className="p-2 text-slate-500 hover:text-white transition-colors">
+              <XIcon className="w-5 h-5" />
+            </button>
         </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide bg-space-950/20">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-hide bg-space-950/20">
             {messages.map((msg, idx) => (
                 <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                    <div className={`max-w-[88%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm transition-all ${
+                    <div 
+                      className={`ai-content max-w-[90%] p-3.5 rounded-2xl text-[13.5px] leading-relaxed shadow-sm transition-all ${
                         msg.role === 'user' 
-                            ? 'bg-comet-600/20 border border-comet-500/30 text-white rounded-tr-none' 
+                            ? 'bg-comet-600/10 border border-comet-500/20 text-white rounded-tr-none' 
                             : msg.role === 'system'
-                            ? 'bg-black/40 border border-white/5 text-comet-300 font-mono text-[11px] py-2 px-3 animate-pulse'
+                            ? 'bg-black/20 border border-white/5 text-comet-400 font-mono text-[10px] py-2 px-3 italic'
                             : 'bg-white/5 border border-white/10 text-slate-200 rounded-tl-none'
-                    }`}>
-                        <div className="whitespace-pre-wrap">{msg.text}</div>
-                    </div>
-                    <span className="text-[8px] font-mono text-slate-600 mt-1 uppercase tracking-tighter">
-                      {msg.role === 'user' ? 'Client Request' : msg.role === 'system' ? 'Kernel' : 'Auditor Instance'}
+                      }`}
+                      dangerouslySetInnerHTML={{ __html: msg.text }}
+                    />
+                    <span className="text-[7px] font-mono text-slate-700 mt-1 uppercase tracking-widest">
+                      {msg.role === 'user' ? 'You' : msg.role === 'system' ? 'System' : 'Kemi AI'}
                     </span>
                 </div>
             ))}
@@ -241,25 +228,23 @@ const ChatBot = () => {
                 <div className="flex justify-start">
                     <div className="bg-white/5 border border-white/10 p-3 rounded-2xl rounded-tl-none flex items-center gap-2">
                         <div className="flex gap-1">
-                          <span className="w-1.5 h-1.5 bg-comet-500 rounded-full animate-bounce"></span>
-                          <span className="w-1.5 h-1.5 bg-comet-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                          <span className="w-1.5 h-1.5 bg-comet-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                          <span className="w-1 h-1 bg-comet-500 rounded-full animate-bounce"></span>
+                          <span className="w-1 h-1 bg-comet-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                          <span className="w-1 h-1 bg-comet-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
                         </div>
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-tighter">Parsing Assertions...</span>
                     </div>
                 </div>
             )}
             
-            {/* Suggestions */}
             {messages.length < 3 && !isLoading && !isDiagnosticRunning && (
-              <div className="flex flex-wrap gap-2 pt-4">
+              <div className="flex flex-wrap gap-2 pt-2">
                 {SUGGESTIONS.map((s, i) => (
                   <button 
                     key={i} 
                     onClick={() => handleSend(s)}
-                    className="text-[10px] font-mono py-1.5 px-3 rounded-full border border-white/10 bg-white/5 text-slate-400 hover:border-comet-500/50 hover:text-comet-300 transition-all text-left"
+                    className="text-[10px] font-mono py-1.5 px-3 rounded-lg border border-white/5 bg-white/5 text-slate-400 hover:border-comet-500/40 hover:text-comet-300 transition-all text-left"
                   >
-                    [Case {i+1}]: {s}
+                    {s}
                   </button>
                 ))}
               </div>
@@ -267,33 +252,29 @@ const ChatBot = () => {
             <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
         <form 
           onSubmit={(e) => { e.preventDefault(); handleSend(); }} 
-          className="p-4 border-t border-white/10 bg-black/40 rounded-b-2xl"
+          className="p-4 bg-black/40 rounded-b-2xl"
         >
-            <div className="flex gap-2 relative">
+            <div className="flex gap-2">
                 <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Enter command or test case..."
-                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-comet-500/50 focus:ring-1 focus:ring-comet-500/30 placeholder-slate-600 transition-all font-mono"
+                    placeholder="Ask about my experience..."
+                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-comet-500/50 transition-all"
                 />
                 <button 
                     type="submit" 
                     disabled={!input.trim() || isLoading}
-                    className="p-3 bg-comet-600 text-white rounded-xl hover:bg-comet-500 disabled:opacity-50 disabled:grayscale transition-all shadow-lg shadow-comet-900/20"
+                    className="p-2.5 bg-comet-600 text-white rounded-xl hover:bg-comet-500 disabled:opacity-30 transition-all"
                 >
-                    <SendIcon className="w-5 h-5" />
+                    <SendIcon className="w-4 h-4" />
                 </button>
             </div>
             <div className="flex justify-between items-center mt-3 px-1">
-              <div className="flex items-center gap-1">
-                <SparklesIcon className="w-3 h-3 text-comet-400" />
-                <span className="text-[9px] text-slate-600 font-mono uppercase">Engine: Gemini Pro 3.0</span>
-              </div>
-              <span className="text-[8px] text-slate-700 font-mono italic">Node: 12.0.1 // Latency: Low</span>
+              <span className="text-[8px] text-slate-700 font-mono uppercase tracking-tighter">AI-Enabled Career Agent</span>
+              <span className="text-[8px] text-slate-800 font-mono">v3.0.1</span>
             </div>
         </form>
       </div>
