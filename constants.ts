@@ -1,4 +1,5 @@
 
+
 import { Job, Project, SkillCategory, SocialLink, EducationItem } from './types';
 
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -41,6 +42,28 @@ export const FUN_FACTS = [
 ];
 
 export const PROJECTS: Project[] = [
+  {
+    title: "Appium Mobile Automation",
+    description: "Developed a comprehensive mobile test automation framework using Java and Appium to validate functionality across Android and iOS devices.",
+    link: "https://github.com/BeatBioInfo", // Fallback link if specific repo isn't known yet
+    techStack: ["Appium", "Java", "TestNG", "Android", "iOS"],
+    type: "github",
+    stats: [
+        { label: "Devices", value: "12+" },
+        { label: "Coverage", value: "85%" }
+    ]
+  },
+  {
+      title: "Test Plan Documentation",
+      description: "Designed detailed test strategy and plan documentation ensuring 100% requirement traceability and streamlined QA processes for cross-functional teams.",
+      link: "#",
+      techStack: ["Jira", "TestRail", "Confluence", "Strategy"],
+      type: "n8n", // Using a generic icon type for docs
+      stats: [
+          { label: "Docs", value: "50+" },
+          { label: "Clarity", value: "100%" }
+      ]
+  },
   {
     title: "Cypress Book Appointment Test",
     description: "Automated end-to-end testing suite for appointment scheduling workflows using Cypress to ensure seamless user booking experiences.",

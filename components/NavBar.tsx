@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { BugIcon } from './Icons';
 
@@ -11,7 +12,7 @@ const NavBar = () => {
   const navItems = [
     { label: 'Profile', id: 'profile' },
     { label: 'Skills', id: 'skills' },
-    { label: 'Experience', id: 'experience' },
+    // Experience removed as requested
     { label: 'Projects', id: 'projects' },
     { label: 'Offline Mode', id: 'fun-facts' },
     { label: 'Contact', id: 'contact' },

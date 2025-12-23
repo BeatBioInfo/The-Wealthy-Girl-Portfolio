@@ -1,13 +1,15 @@
 
+
 import React from 'react';
 import NavBar from './components/NavBar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
-import Experience from './components/Experience';
+// Experience removed from UI as requested
 import Projects from './components/Projects';
 import FunFacts from './components/FunFacts';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ChatBot from './components/ChatBot';
 
 const App = () => {
   return (
@@ -16,12 +18,13 @@ const App = () => {
       <main>
         <Hero />
         <Skills />
-        <Experience />
+        {/* Experience section removed */}
         <Projects />
         <FunFacts />
         <Contact />
       </main>
       <Footer />
+      <ChatBot />
     </div>
   );
 };

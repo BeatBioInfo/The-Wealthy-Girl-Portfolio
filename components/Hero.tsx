@@ -1,4 +1,6 @@
 
+
+
 import React, { useState, useEffect } from 'react';
 import { PROFILE } from '../constants';
 import { DownloadIcon } from './Icons';
@@ -23,9 +25,9 @@ const Hero = () => {
     setBgParticles(particles);
   }, []);
 
-  const handleScrollToExperience = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const element = document.getElementById('experience');
+    const element = document.getElementById('projects');
     if (element) {
         const headerOffset = 85;
         const elementPosition = element.getBoundingClientRect().top;
@@ -169,8 +171,8 @@ const Hero = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col md:flex-row gap-4 mb-8">
                 <a 
-                    href="#experience" 
-                    onClick={handleScrollToExperience}
+                    href="#projects" 
+                    onClick={handleScrollToProjects}
                     className="group relative inline-flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-8 py-4 transition-all duration-300 hover:bg-white/10 hover:border-comet-500/30 hover:shadow-[0_0_20px_rgba(20,184,166,0.2)] cursor-pointer w-full md:w-auto min-w-[200px]"
                 >
                     <span className="text-white font-medium mr-3 tracking-wide">View Portfolio</span>
